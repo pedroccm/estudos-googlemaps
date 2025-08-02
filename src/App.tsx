@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EstablishmentList } from "@/components/EstablishmentList";
 import { Dashboard } from "@/components/Dashboard";
+import { UrlAnalyticsDashboard } from "@/components/UrlAnalyticsDashboard";
 import { analyzeData } from "@/utils/dataAnalysis";
 import type { Establishment } from "@/types/establishment";
 
@@ -57,6 +58,12 @@ function App() {
                 📊 Dashboard
               </TabsTrigger>
               <TabsTrigger 
+                value="url-analytics" 
+                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+              >
+                🔗 Análise URLs
+              </TabsTrigger>
+              <TabsTrigger 
                 value="advogados"
                 className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
               >
@@ -102,6 +109,10 @@ function App() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsContent value="dashboard" className="mt-0">
             <Dashboard statistics={statistics} />
+          </TabsContent>
+
+          <TabsContent value="url-analytics" className="mt-0">
+            <UrlAnalyticsDashboard establishments={allEstablishments} />
           </TabsContent>
 
           <TabsContent value="advogados" className="mt-0">
