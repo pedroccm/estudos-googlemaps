@@ -59,9 +59,6 @@ export function EstablishmentList({ establishments, title }: EstablishmentListPr
     window.open(`tel:${phone}`);
   };
 
-  const handleOpenWebsite = (website: string) => {
-    window.open(website, '_blank');
-  };
 
   return (
     <div className="space-y-6">
