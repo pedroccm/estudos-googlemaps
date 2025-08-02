@@ -59,7 +59,7 @@ export function Dashboard({ statistics }: DashboardProps) {
           <CardContent className="p-6">
             <div className="space-y-2">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Tel. Fixo</p>
-              <div className="text-3xl font-medium text-primary">{statistics.withFixedPhone.toLocaleString()}</div>
+              <div className="text-3xl font-medium text-orange">{statistics.withFixedPhone.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 {((statistics.withFixedPhone / statistics.totalEstablishments) * 100).toFixed(1)}%
               </p>
@@ -71,7 +71,7 @@ export function Dashboard({ statistics }: DashboardProps) {
           <CardContent className="p-6">
             <div className="space-y-2">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">WhatsApp</p>
-              <div className="text-3xl font-medium text-primary">{statistics.withWhatsApp.toLocaleString()}</div>
+              <div className="text-3xl font-medium text-orange">{statistics.withWhatsApp.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 {((statistics.withWhatsApp / statistics.totalEstablishments) * 100).toFixed(1)}%
               </p>

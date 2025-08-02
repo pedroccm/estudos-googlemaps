@@ -19,6 +19,8 @@
     --muted-foreground: 212 27% 45%;
     --accent: 229 87% 67%;
     --accent-foreground: 0 0% 100%;
+    --orange: 24 95% 53%; /* #ff6b00 */
+    --orange-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 11% 91%;
@@ -42,6 +44,8 @@
     --muted-foreground: 0 0% 70%;
     --accent: 229 87% 67%;
     --accent-foreground: 0 0% 100%;
+    --orange: 24 95% 53%; /* #ff6b00 */
+    --orange-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 212 27% 20%;
@@ -103,5 +107,9 @@
     font-size: 12px;
     font-weight: 400;
     line-height: 1.4;
+  }
+  
+  .text-orange {
+    color: hsl(var(--orange));
   }
 }
