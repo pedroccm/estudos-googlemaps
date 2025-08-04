@@ -66,56 +66,65 @@ export function EstablishmentList({ establishments, title }: EstablishmentListPr
         <h2 className="text-2xl font-bold mb-4">{title}</h2>
         
         {/* Controles de filtro e visualização */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <div className="space-y-4 mb-4">
+          {/* Barra de busca - sempre em linha própria no mobile */}
           <input
             type="text"
             placeholder="Buscar estabelecimentos..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           
-          <div className="flex gap-4 items-center">
-            {/* Filtro por website */}
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={websiteFilter === "with"}
-                onChange={(e) => setWebsiteFilter(e.target.checked ? "with" : "all")}
-                className="rounded"
-              />
-              Apenas com site
-            </label>
-            
-            {/* Ordenação */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "none" | "reviews" | "rating" | "combined")}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            >
-              <option value="none">Sem ordenação</option>
-              <option value="reviews">Por nº de avaliações</option>
-              <option value="rating">Por nota</option>
-              <option value="combined">Por relevância</option>
-            </select>
+          {/* Controles em duas linhas no mobile */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Primeira linha mobile: filtros */}
+            <div className="flex flex-col sm:flex-row gap-4 flex-1">
+              {/* Filtro por website */}
+              <label className="flex items-center gap-2 text-sm whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  checked={websiteFilter === "with"}
+                  onChange={(e) => setWebsiteFilter(e.target.checked ? "with" : "all")}
+                  className="rounded"
+                />
+                Apenas com site
+              </label>
+              
+              {/* Ordenação */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "none" | "reviews" | "rating" | "combined")}
+                className="flex-1 sm:flex-none px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm min-w-[160px]"
+              >
+                <option value="none">Sem ordenação</option>
+                <option value="reviews">Por nº de avaliações</option>
+                <option value="rating">Por nota</option>
+                <option value="combined">Por relevância</option>
+              </select>
+            </div>
             
             {/* Modo de visualização */}
-            <div className="flex gap-1">
+            <div className="flex gap-1 justify-center sm:justify-start">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setViewMode("cards")}
-                className={`p-2 ${viewMode === "cards" ? "bg-gray-100" : ""}`}
+                className={`p-2 flex-1 sm:flex-none ${viewMode === "cards" ? "bg-gray-100" : ""}`}
               >
-                📱
+                <span className="flex items-center gap-1">
+                  📱 <span className="sm:hidden">Cards</span>
+                </span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setViewMode("table")}
-                className={`p-2 ${viewMode === "table" ? "bg-gray-100" : ""}`}
+                className={`p-2 flex-1 sm:flex-none ${viewMode === "table" ? "bg-gray-100" : ""}`}
               >
-                📋
+                <span className="flex items-center gap-1">
+                  📋 <span className="sm:hidden">Tabela</span>
+                </span>
               </Button>
             </div>
           </div>
@@ -146,71 +155,96 @@ export function EstablishmentList({ establishments, title }: EstablishmentListPr
 
       {/* Visualização em Tabela */}
       {viewMode === "table" && (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>Avaliação</TableHead>
-              <TableHead>Website</TableHead>
-              <TableHead>Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAndSortedEstablishments.map((establishment, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">{establishment.title}</TableCell>
-                <TableCell>
-                  {establishment.totalScore ? (
-                    <span className="flex items-center gap-1">
-                      ⭐ {establishment.totalScore}
-                      <span className="text-xs text-muted-foreground">
-                        ({establishment.reviewsCount})
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="min-w-[200px]">Nome</TableHead>
+                <TableHead className="min-w-[100px] hidden sm:table-cell">Avaliação</TableHead>
+                <TableHead className="min-w-[150px] hidden lg:table-cell">Website</TableHead>
+                <TableHead className="min-w-[120px]">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredAndSortedEstablishments.map((establishment, index) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium">
+                    <div className="flex flex-col">
+                      <span className="font-medium">{establishment.title}</span>
+                      <div className="sm:hidden text-xs text-muted-foreground mt-1">
+                        {establishment.totalScore ? (
+                          <span className="flex items-center gap-1">
+                            ⭐ {establishment.totalScore} ({establishment.reviewsCount})
+                          </span>
+                        ) : (
+                          <span>Sem avaliações</span>
+                        )}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    {establishment.totalScore ? (
+                      <span className="flex items-center gap-1">
+                        ⭐ {establishment.totalScore}
+                        <span className="text-xs text-muted-foreground">
+                          ({establishment.reviewsCount})
+                        </span>
                       </span>
-                    </span>
-                  ) : (
-                    <span className="text-xs text-muted-foreground">Sem avaliações</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {establishment.website ? (
-                    <a
-                      href={establishment.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline text-sm max-w-xs block truncate"
-                    >
-                      {establishment.website}
-                    </a>
-                  ) : (
-                    <span className="text-muted-foreground text-sm">-</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <div className="flex gap-1">
-                    <Button
-                      onClick={() => handleOpenMaps(establishment.url)}
-                      size="sm"
-                      variant="outline"
-                      className="text-xs px-2 py-1 h-auto"
-                    >
-                      Maps
-                    </Button>
-                    {establishment.phone && (
+                    ) : (
+                      <span className="text-xs text-muted-foreground">Sem avaliações</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell">
+                    {establishment.website ? (
+                      <a
+                        href={establishment.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline text-sm max-w-xs block truncate"
+                      >
+                        {establishment.website}
+                      </a>
+                    ) : (
+                      <span className="text-muted-foreground text-sm">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-col sm:flex-row gap-1">
                       <Button
-                        onClick={() => handleCallPhone(establishment.phone!)}
+                        onClick={() => handleOpenMaps(establishment.url)}
                         size="sm"
                         variant="outline"
                         className="text-xs px-2 py-1 h-auto"
                       >
-                        📞
+                        Maps
                       </Button>
-                    )}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                      {establishment.phone && (
+                        <Button
+                          onClick={() => handleCallPhone(establishment.phone!)}
+                          size="sm"
+                          variant="outline"
+                          className="text-xs px-2 py-1 h-auto"
+                        >
+                          📞
+                        </Button>
+                      )}
+                      {establishment.website && (
+                        <Button
+                          onClick={() => window.open(establishment.website, '_blank')}
+                          size="sm"
+                          variant="outline"
+                          className="text-xs px-2 py-1 h-auto lg:hidden"
+                        >
+                          🌐
+                        </Button>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       )}
 
       {filteredAndSortedEstablishments.length === 0 && (

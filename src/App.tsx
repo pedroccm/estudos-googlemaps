@@ -34,12 +34,12 @@ function App() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="space-y-2">
-            <h1 className="title-large text-foreground">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground">
               Estabelecimentos de São Paulo
             </h1>
-            <p className="body-large text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground">
               Explore e analise dados de {allEstablishments.length.toLocaleString()} estabelecimentos na capital paulista
             </p>
           </div>
@@ -48,56 +48,64 @@ function App() {
 
       {/* Navigation */}
       <div className="border-b border-border bg-card">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="h-12 bg-transparent border-0 p-0 gap-8">
+            <TabsList className="h-auto bg-transparent border-0 p-0 gap-2 flex-wrap justify-start sm:gap-8 sm:flex-nowrap">
               <TabsTrigger 
                 value="dashboard" 
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                📊 Dashboard
+                <span className="hidden sm:inline">📊 Dashboard</span>
+                <span className="sm:hidden">📊</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="url-analytics" 
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                🔗 Análise URLs
+                <span className="hidden sm:inline">🔗 Análise URLs</span>
+                <span className="sm:hidden">🔗</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="advogados"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                ⚖️ Advogados
+                <span className="hidden sm:inline">⚖️ Advogados</span>
+                <span className="sm:hidden">⚖️</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="crossfit"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                💪 CrossFit
+                <span className="hidden sm:inline">💪 CrossFit</span>
+                <span className="sm:hidden">💪</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="dentistas"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                🦷 Dentistas
+                <span className="hidden sm:inline">🦷 Dentistas</span>
+                <span className="sm:hidden">🦷</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="oftalmo"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                👁️ Oftalmologistas
+                <span className="hidden sm:inline">👁️ Oftalmologistas</span>
+                <span className="sm:hidden">👁️</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="pilates"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                🧘 Pilates
+                <span className="hidden sm:inline">🧘 Pilates</span>
+                <span className="sm:hidden">🧘</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="yoga"
-                className="h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium"
+                className="h-10 sm:h-12 px-3 sm:px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent bg-transparent rounded-none body-medium font-medium flex-shrink-0 whitespace-nowrap"
               >
-                🕉️ Yoga
+                <span className="hidden sm:inline">🕉️ Yoga</span>
+                <span className="sm:hidden">🕉️</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -105,7 +113,7 @@ function App() {
       </div>
 
       {/* Content */}
-      <main className="container mx-auto px-6 py-8">
+      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsContent value="dashboard" className="mt-0">
             <Dashboard statistics={statistics} />

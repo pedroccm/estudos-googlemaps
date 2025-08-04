@@ -98,34 +98,36 @@ export function Dashboard({ statistics }: DashboardProps) {
           </p>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Setor</TableHead>
-                <TableHead className="text-right">Estabelecimentos</TableHead>
-                <TableHead className="text-right">Total de Avaliações</TableHead>
-                <TableHead className="text-right">Com Site</TableHead>
-                <TableHead className="text-right">Sem Site</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {categoriesByCount.map(([category, count]) => (
-                <TableRow key={category}>
-                  <TableCell className="font-medium">{category}</TableCell>
-                  <TableCell className="text-right">{count}</TableCell>
-                  <TableCell className="text-right">
-                    {(statistics.categoriesReviews[category] || 0).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="text-right text-green-600">
-                    {statistics.categoriesWithWebsite[category] || 0}
-                  </TableCell>
-                  <TableCell className="text-right text-red-600">
-                    {statistics.categoriesWithoutWebsite[category] || 0}
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Setor</TableHead>
+                  <TableHead className="text-right">Estabelecimentos</TableHead>
+                  <TableHead className="text-right hidden sm:table-cell">Total de Avaliações</TableHead>
+                  <TableHead className="text-right">Com Site</TableHead>
+                  <TableHead className="text-right hidden md:table-cell">Sem Site</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {categoriesByCount.map(([category, count]) => (
+                  <TableRow key={category}>
+                    <TableCell className="font-medium">{category}</TableCell>
+                    <TableCell className="text-right">{count}</TableCell>
+                    <TableCell className="text-right hidden sm:table-cell">
+                      {(statistics.categoriesReviews[category] || 0).toLocaleString()}
+                    </TableCell>
+                    <TableCell className="text-right text-green-600">
+                      {statistics.categoriesWithWebsite[category] || 0}
+                    </TableCell>
+                    <TableCell className="text-right text-red-600 hidden md:table-cell">
+                      {statistics.categoriesWithoutWebsite[category] || 0}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
 
