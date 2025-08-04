@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EstablishmentCard } from "./EstablishmentCard";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { isBrazilianMobile, getWhatsAppUrl } from "@/utils/phoneUtils";
 import type { Establishment } from "@/types/establishment";
 
 interface EstablishmentListProps {
@@ -57,6 +58,10 @@ export function EstablishmentList({ establishments, title }: EstablishmentListPr
 
   const handleCallPhone = (phone: string) => {
     window.open(`tel:${phone}`);
+  };
+
+  const handleOpenWhatsApp = (phone: string) => {
+    window.open(getWhatsAppUrl(phone), '_blank');
   };
 
 
@@ -219,14 +224,29 @@ export function EstablishmentList({ establishments, title }: EstablishmentListPr
                         Maps
                       </Button>
                       {establishment.phone && (
-                        <Button
-                          onClick={() => handleCallPhone(establishment.phone!)}
-                          size="sm"
-                          variant="outline"
-                          className="text-xs px-2 py-1 h-auto"
-                        >
-                          📞
-                        </Button>
+                        <>
+                          {isBrazilianMobile(establishment.phone) ? (
+                            <Button
+                              onClick={() => handleOpenWhatsApp(establishment.phone!)}
+                              size="sm"
+                              variant="outline"
+                              className="text-xs px-2 py-1 h-auto bg-green-50 hover:bg-green-100 text-green-700 border-green-200 hover:text-green-700"
+                              title="Enviar mensagem via WhatsApp"
+                            >
+                              💬
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => handleCallPhone(establishment.phone!)}
+                              size="sm"
+                              variant="outline"
+                              className="text-xs px-2 py-1 h-auto"
+                              title="Ligar"
+                            >
+                              📞
+                            </Button>
+                          )}
+                        </>
                       )}
                       {establishment.website && (
                         <Button

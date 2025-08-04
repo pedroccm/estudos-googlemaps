@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { isBrazilianMobile, getWhatsAppUrl } from "@/utils/phoneUtils";
 import type { Establishment } from "@/types/establishment";
 
 interface EstablishmentCardProps {
@@ -14,6 +15,12 @@ export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
   const handleCallPhone = () => {
     if (establishment.phone) {
       window.open(`tel:${establishment.phone}`);
+    }
+  };
+
+  const handleOpenWhatsApp = () => {
+    if (establishment.phone) {
+      window.open(getWhatsAppUrl(establishment.phone), '_blank');
     }
   };
 
@@ -57,9 +64,22 @@ export function EstablishmentCard({ establishment }: EstablishmentCardProps) {
             </Button>
             
             {establishment.phone && (
-              <Button onClick={handleCallPhone} variant="outline" size="sm">
-                📞 Ligar
-              </Button>
+              <>
+                {isBrazilianMobile(establishment.phone) ? (
+                  <Button 
+                    onClick={handleOpenWhatsApp} 
+                    variant="outline" 
+                    size="sm"
+                    className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200 hover:text-green-700"
+                  >
+                    💬 WhatsApp
+                  </Button>
+                ) : (
+                  <Button onClick={handleCallPhone} variant="outline" size="sm">
+                    📞 Ligar
+                  </Button>
+                )}
+              </>
             )}
             
             {establishment.website && (
